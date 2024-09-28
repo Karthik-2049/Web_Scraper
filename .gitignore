@@ -1,4 +1,4 @@
 
 web_scraper.db
 myenv/
-_pycache_
+__pycache__
