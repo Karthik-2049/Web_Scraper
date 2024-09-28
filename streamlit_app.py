@@ -4,20 +4,48 @@ from bs4 import BeautifulSoup as bs
 import requests
 import time
 
-st.session_state['domain'] = ""
-
+st.markdown(
+    """
+    <style>
+    .stButton > button {
+        min-width: 220px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 def stream_data(data):
     for letter in list(data):
         yield letter + ""
         time.sleep(0.005)
 
+if 'domain' not in st.session_state:
+    st.session_state['domain'] = ""
+
+def update(dm):
+    st.session_state['domain'] = dm
+
 st.title("WEB :blue[SCRAPER]")
-domain = st.text_input("Paste the url", value = st.session_state['domain'])
+domain = st.text_input("Paste the URL", value=st.session_state['domain'])
 
 
+c1, c2, c3 = st.columns(3)
+if c1.button("https://streamlit.io/cloud"):
+    update("https://streamlit.io/cloud")
+    st.rerun()
+if c2.button("https://www.britannica.com/"):
+    update("https://www.britannica.com/")
+    st.rerun()
+if c3.button("https://jamesclear.com/"):
+    update("https://jamesclear.com/")
+    st.rerun()
 
-if(st.button("Scrape")):
+
+x1,x2,x3 = st.columns(3)
+
+
+if(x2.button("Scrape")):
     try:
         if(domain==""):
             st.write("No url provided")
