@@ -15,6 +15,8 @@ def createDataFrame(table_name):
     cur = conn.cursor()
     query = f"select * from {table_name}"
     data = list(cur.execute(query))
+    data = list(set(data))
+    st.write(len(data))
     return data
 
 def setTable(): 
@@ -44,7 +46,7 @@ if 'current_view' not in st.session_state:
     st.session_state['current_view'] = ['table',None]
 
 if 'datax' not in st.session_state:
-    st.session_state['datax'] = list(set(createDataFrame("DOMAIN_LINKS")))
+    st.session_state['datax'] = createDataFrame("DOMAIN_LINKS")
 
 if "pg_num" not in st.session_state:
     st.session_state['pg_num'] = 0
@@ -53,7 +55,7 @@ if 'filt_data' not in st.session_state:
     st.session_state['filt_data'] = st.session_state['datax'][:10]
 
 if 'cur_data' not in st.session_state:
-    st.session_state['cur_data'] = list(set(createDataFrame("DOMAIN_LINKS")))
+    st.session_state['cur_data'] = createDataFrame("DOMAIN_LINKS")
 
 
 
