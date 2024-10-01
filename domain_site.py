@@ -15,7 +15,7 @@ def createDataFrame(table_name):
     cur = conn.cursor()
     query = f"select * from {table_name}"
     data = list(cur.execute(query))
-    data = list(set(data))
+    # data = list(set(data))
     return data
 
 def setTable(): 
@@ -54,7 +54,7 @@ if 'filt_data' not in st.session_state:
     st.session_state['filt_data'] = st.session_state['datax'][:10]
 
 if 'cur_data' not in st.session_state:
-    st.session_state['cur_data'] = createDataFrame("DOMAIN_LINKS")
+    st.session_state['cur_data'] = st.session_state['datax']
 
 
 
@@ -80,16 +80,17 @@ def mainPage():
     x4.subheader("Status")
     x5.subheader("Info")
 
-    for i in st.session_state['filt_data']:
+    for j in range(len(st.session_state['filt_data'])):
+        i = st.session_state['filt_data']
         col1, col2, col3, col4, col5 = st.container().columns([1,3,1,1,1])
-        col1.write(f"<div class='row-height'>{i[0]}</div>", unsafe_allow_html=True)
-        col2.markdown(f'https://{i[1]}')
-        col3.write(f"<div class='row-height'>{i[2]}</div>", unsafe_allow_html=True)
-        col4.write(f"<div class='row-height'>{i[3]}</div>", unsafe_allow_html=True)
+        col1.write(f"<div class='row-height'>{i[j][0]}</div>", unsafe_allow_html=True)
+        col2.markdown(f'https://{i[j][1]}')
+        col3.write(f"<div class='row-height'>{i[j][2]}</div>", unsafe_allow_html=True)
+        col4.write(f"<div class='row-height'>{i[j][3]}</div>", unsafe_allow_html=True)
 
 
-        if col5.button("Get Info", key= i[1]+i[0]):
-            st.session_state['current_view'] = ['info',i[1]]
+        if col5.button("Get Info", key= i[j][1]+i[j][0]+f'{j}'):
+            st.session_state['current_view'] = ['info',i[j][1]]
             st.rerun()
         
 def showInfoPage():
