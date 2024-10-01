@@ -3,14 +3,12 @@ import streamlit as st
 import sqlite3 as sq
 import requests
 import pandas as pd
-import aiohttp
-import asyncio
+# import aiohttp
+# import asyncio
 from streamlit_app import showInfo
 import random
 
-def genRan(x):
-    f = int(random.random()*10000)
-    return f"{x}{f}"
+
 
 def createDataFrame(table_name):
     conn = sq.connect('web_scraper.db')
@@ -57,11 +55,6 @@ if 'filt_data' not in st.session_state:
 if 'cur_data' not in st.session_state:
     st.session_state['cur_data'] = createDataFrame("DOMAIN_LINKS")
 
-# if 'search_dom' not in st.session_state:
-#     st.session_state['search_dom'] = ""
-
-
-
 
 
 st.markdown("""
@@ -73,10 +66,6 @@ st.markdown("""
         }
         </style>
     """, unsafe_allow_html=True)
-
-
-
-
 
 
 
@@ -98,7 +87,7 @@ def mainPage():
         col4.write(f"<div class='row-height'>{i[3]}</div>", unsafe_allow_html=True)
 
 
-        if col5.button("Get Info", key=genRan(i[1])):
+        if col5.button("Get Info", key= i[1]+i[0]):
             st.session_state['current_view'] = ['info',i[1]]
             st.rerun()
         
