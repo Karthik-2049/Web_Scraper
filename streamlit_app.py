@@ -4,6 +4,10 @@ from bs4 import BeautifulSoup as bs
 import requests
 import time
 
+if 'domain' not in st.session_state:
+    st.session_state['domain'] = ""
+
+
 st.markdown(
     """
     <style>
@@ -20,32 +24,31 @@ def stream_data(data):
         yield letter + ""
         time.sleep(0.005)
 
-if 'domain' not in st.session_state:
-    st.session_state['domain'] = ""
-
 def update(dm):
     st.session_state['domain'] = dm
 
-st.title("WEB :blue[SCRAPER]")
-domain = st.text_input("Paste the URL", value=st.session_state['domain'])
 
 
-c1, c2, c3 = st.columns(3)
-if c1.button("https://streamlit.io/cloud"):
-    update("https://streamlit.io/cloud")
-    st.rerun()
-if c2.button("https://www.britannica.com/"):
-    update("https://www.britannica.com/")
-    st.rerun()
-if c3.button("https://jamesclear.com/"):
-    update("https://jamesclear.com/")
-    st.rerun()
+# st.title("WEB :blue[SCRAPER]")
+# domain = st.text_input("Paste the URL", value=st.session_state['domain'])
 
 
-x1,x2,x3 = st.columns(3)
+# c1, c2, c3 = st.columns(3)
+# if c1.button("https://streamlit.io/cloud"):
+#     update("https://streamlit.io/cloud")
+#     st.rerun()
+# if c2.button("https://www.britannica.com/"):
+#     update("https://www.britannica.com/")
+#     st.rerun()
+# if c3.button("https://jamesclear.com/"):
+#     update("https://jamesclear.com/")
+#     st.rerun()
 
 
-if(x2.button("Scrape")):
+
+def showInfo(domain):
+    # if(st.button('Back')):
+    #     return 'table'
     try:
         if(domain==""):
             st.write("No url provided")
@@ -142,11 +145,11 @@ if(x2.button("Scrape")):
                 for i in contact['phone_numbers']:
                     col2.write_stream(stream_data(i))
 
-   
-
     except Exception as e:
         print(e)
         st.write("Connection timed out for the provided url")
+    
+
 
 
 

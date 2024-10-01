@@ -8,7 +8,7 @@ def insertEntries(entries_list):
 
     conn.execute('''CREATE TABLE IF NOT EXISTS DOMAIN_LINKS
                  (date TEXT, domain_name TEXT, tld TEXT)''')
-    conn.executemany('''INSERT INTO DOMAIN_LINKS (date,domain_name,tld) VALUES (?,?,?)''',entries_list)
+    conn.executemany('''INSERT INTO DOMAIN_LINKS (date,domain_name,tld, status) VALUES (?,?,?,?)''',entries_list)
     conn.commit()
     cur.close()
     conn.close()
@@ -50,3 +50,11 @@ def numberOfRegisteredDomains(table_name, date):
     query = f"Select Count(*) AS entry_count from {table_name} where date = '{date}'"
     registered_number = list(cur.execute(query))
     print(f"Number of registered domain users : {registered_number[0][0]}")
+
+def numberOfDomains(table_name):
+    conn = sq.connect('web_scraper.db')
+    cur = conn.cursor()
+    cur.execute(f"SELECT COUNT(*) FROM {table_name}")
+    row_count = cur.fetchone()[0]
+    conn.close()
+    return row_count
