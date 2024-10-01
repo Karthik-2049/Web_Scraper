@@ -16,7 +16,6 @@ def createDataFrame(table_name):
     query = f"select * from {table_name}"
     data = list(cur.execute(query))
     data = list(set(data))
-    st.write(len(data))
     return data
 
 def setTable(): 
