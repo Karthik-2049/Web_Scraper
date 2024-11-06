@@ -1,37 +1,24 @@
-# from urllib.parse import urlparse
+import requests
+from bs4 import BeautifulSoup
 
-# x = urlparse("https://docs.streamlit.io/develop/api-reference")
-# print(x.netloc)
-# print(x.scheme)
+# URL of the webpage you want to scrape
+url = 'https://finance.yahoo.com/news/djt-stock-surges-following-elon-musk-cameo-at-trump-rally-161321275.html'  # Replace this with the actual URL
 
+# Fetch the content from the URL
+response = requests.get(url)
 
-# x = [
-#     ('2024-09-29', 'raeon.in', 'in', 'Not Working'),
-# ('2024-09-29', 'dotwaveshop.in', 'in', 'Not Working'),
-# ('2024-09-29', 'contemplations02.in', 'in', 'Not Working'),
-# ('2024-09-29', 'contemplations02.in', 'in', 'Not Working'),
-# ('2024-09-29', 'doublegk.in', 'in', 'Not Working')
-# ]
+# Parse the HTML content
+soup = BeautifulSoup(response.content, 'html.parser')
 
-# for i in x:
-#     i.append("dkj")
-# print(x)
+# Find the <time> tag and print its text
+time_tag = soup.find('time')
+if time_tag:
+    print("Text in time tag:", time_tag.text)
+else:
+    print("No <time> tag found")
 
-# import sqlite3 as sq
+p_tags= soup.find_all('p')
 
-# conn = sq.connect('web_scraper.db')
-# cur = conn.cursor()
-# query = f"select * from DOMAIN_LINKS limit 10"
-# data = list(cur.execute(query))
-# # print(data)
-# date = [i[0] for i in data]
-# domain_link = [f'https://{i[1]}' for i in data]
-# tld = [i[2] for i in data]
-# status = [i[3] for i in data]
-
-# print(type(data[0][3]))
-
-import random
-
-x = int(random.random()*10000)
-print(x)
+for i in p_tags:
+    print(i.text)
+    print("\n")

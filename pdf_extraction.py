@@ -11,8 +11,6 @@ def formatDate(x):
   temp = x.split('-')
   return "-".join(temp[::-1])
 
-
-
 async def is_website_working(url, session):
     try:
         async with session.get(url, timeout=5) as response:

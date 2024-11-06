@@ -58,3 +58,53 @@ def numberOfDomains(table_name):
     row_count = cur.fetchone()[0]
     conn.close()
     return row_count
+
+def countWorkingDomains(table_name):
+    conn = sq.connect('web_scraper.db')
+    cur = conn.cursor()
+    query = f"SELECT COUNT(*) FROM {table_name} WHERE status = 'Working'"
+    cur.execute(query)
+    working_count = cur.fetchone()[0]
+    cur.close()
+    conn.close()
+    return working_count
+
+def countNotWorkingDomains(table_name):
+    conn = sq.connect('web_scraper.db')
+    cur = conn.cursor()
+    query = f"SELECT COUNT(*) FROM {table_name} WHERE status = 'Not Working'"
+    cur.execute(query)
+    not_working_count = cur.fetchone()[0]
+    cur.close()
+    conn.close()
+    return not_working_count
+
+def removeDuplicates(table_name):
+    # Connect to the SQLite database
+    conn = sq.connect("web_scraper.db")
+    cursor = conn.cursor()
+
+    
+    unique_columns = ["date", "domain_name"]  # Replace with the columns that should be unique
+
+    # Step 1: Find and remove duplicate rows
+    query = f"""
+    DELETE FROM {table_name}
+    WHERE rowid NOT IN (
+        SELECT MIN(rowid)
+        FROM {table_name}
+        GROUP BY {', '.join(unique_columns)}
+    )
+    """
+    cursor.execute(query)
+    conn.commit()
+
+    print("Duplicates removed successfully.")
+
+    # Close the connection
+    conn.close()
+
+# removeDuplicates('domain_links')
+# print("Total Working Domains:", countWorkingDomains('DOMAIN_LINKS'))
+# print("Total Not Working Domains:", countNotWorkingDomains('DOMAIN_LINKS'))
+# print(numberOfDomains('domain_links'))

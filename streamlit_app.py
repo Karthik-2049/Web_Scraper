@@ -29,21 +29,6 @@ def update(dm):
 
 
 
-# st.title("WEB :blue[SCRAPER]")
-# domain = st.text_input("Paste the URL", value=st.session_state['domain'])
-
-
-# c1, c2, c3 = st.columns(3)
-# if c1.button("https://streamlit.io/cloud"):
-#     update("https://streamlit.io/cloud")
-#     st.rerun()
-# if c2.button("https://www.britannica.com/"):
-#     update("https://www.britannica.com/")
-#     st.rerun()
-# if c3.button("https://jamesclear.com/"):
-#     update("https://jamesclear.com/")
-#     st.rerun()
-
 
 
 def showInfo(domain):
