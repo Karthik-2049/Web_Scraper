@@ -15,7 +15,7 @@ working_domains = countWorkingDomains('DOMAIN_LINKS')
 def createDataFrame(table_name):
     conn = sq.connect('web_scraper.db')
     cur = conn.cursor()
-    query = f"select * from {table_name}"
+    query = f"select * from {table_name} ORDER BY DATE DESC"
     data = list(cur.execute(query))
     # data = list(set(data))
     return data
