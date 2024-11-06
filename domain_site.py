@@ -78,16 +78,10 @@ def mainPage():
     with st.container():
     # st.markdown("### Domain Summary")
         col1, col2, col3 = st.columns(3)
-        
-        # Total Domains Column
         with col1:
             st.metric("Total Domains", total_domains)
-            
-        # Working Domains Column
         with col2:
             st.metric("Working Domains", working_domains)
-            
-        # Not Working Domains Column
         with col3:
             st.metric("Not Working Domains", total_domains-working_domains)
     x1, x2,x3,x4, x5 = st.columns([1,3,1,1,1])
