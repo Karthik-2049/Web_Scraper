@@ -75,15 +75,7 @@ st.markdown("""
 st.title(".IN Sites")
 
 def mainPage():
-    with st.container():
-    # st.markdown("### Domain Summary")
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            st.metric("Total Domains", total_domains)
-        with col2:
-            st.metric("Working Domains", working_domains)
-        with col3:
-            st.metric("Not Working Domains", total_domains-working_domains)
+    
     x1, x2,x3,x4, x5 = st.columns([1,3,1,1,1])
     x1.subheader("Date")
     x2.subheader("Domain Link")
@@ -116,6 +108,15 @@ def showInfoPage():
 if st.session_state['current_view'][0]=='table':
     search = st.text_input("Search for domain",key = "search", on_change = setSearch)
     # st.rerun()
+    with st.container():
+    # st.markdown("### Domain Summary")
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.metric("Total Domains", total_domains)
+        with col2:
+            st.metric("Working Domains", working_domains)
+        with col3:
+            st.metric("Not Working Domains", total_domains-working_domains)
     mainPage()
     col1,col2,col3,col4 = st.columns([4,1,1,4])
     if col3.button("Next"):
