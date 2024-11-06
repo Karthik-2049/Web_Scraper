@@ -110,12 +110,12 @@ if st.session_state['current_view'][0]=='table':
     # st.rerun()
     with st.container():
     # st.markdown("### Domain Summary")
-        col1, col2, col3 = st.columns(3)
-        with col1:
+        c1, c2, c3 = st.columns(3)
+        with c1:
             st.metric("Total Domains", total_domains)
-        with col2:
+        with c2:
             st.metric("Working Domains", working_domains)
-        with col3:
+        with c3:
             st.metric("Not Working Domains", total_domains-working_domains)
     mainPage()
     col1,col2,col3,col4 = st.columns([4,1,1,4])
