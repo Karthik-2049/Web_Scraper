@@ -106,7 +106,8 @@ def showInfoPage():
             
 
 if st.session_state['current_view'][0]=='table':
-     with st.container():
+    
+    with st.container():
     # st.markdown("### Domain Summary")
         c1, c2, c3 = st.columns(3)
         with c1:
