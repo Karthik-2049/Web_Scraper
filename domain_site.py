@@ -106,9 +106,7 @@ def showInfoPage():
             
 
 if st.session_state['current_view'][0]=='table':
-    search = st.text_input("Search for domain",key = "search", on_change = setSearch)
-    # st.rerun()
-    with st.container():
+     with st.container():
     # st.markdown("### Domain Summary")
         c1, c2, c3 = st.columns(3)
         with c1:
@@ -117,6 +115,10 @@ if st.session_state['current_view'][0]=='table':
             st.metric("Working Domains", working_domains)
         with c3:
             st.metric("Not Working Domains", total_domains-working_domains)
+            
+    search = st.text_input("Search for domain",key = "search", on_change = setSearch)
+    # st.rerun()
+   
     mainPage()
     col1,col2,col3,col4 = st.columns([4,1,1,4])
     if col3.button("Next"):
